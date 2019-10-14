@@ -1,0 +1,21 @@
+name: stream_charts
+description: Chats and Graphs with Streams
+version: 0.0.1
+author: Peter Williams
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  rxdart: any
+  provider: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
