@@ -92,7 +92,7 @@ class PieChartState extends ChartState<PieChart> with ChartPage {
     }
 
     if (widget.onSelect != null) {
-      widget.onSelect(pieController);
+      widget.onSelect(pieController.segments[selectedIndex]);
     }
   }
 }
