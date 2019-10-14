@@ -38,14 +38,12 @@ class Pie extends ChartType<PieData> {
 // Model for each segment of a pie chart
 class PieData extends ChartData {
   PieData({
-    this.radius,
     this.value,
     this.color,
     this.showLabel = false,
     this.label,
   });
 
-  final double radius;
   final double value;
   final Color color;
   final bool showLabel;
@@ -55,7 +53,6 @@ class PieData extends ChartData {
   factory PieData.random(double radius, int maxValue) {
     Random random = Random();
     return PieData(
-      radius: radius,
       value: random.nextInt(maxValue).toDouble(),
       color: Color.fromRGBO(
         random.nextInt(255),
@@ -69,9 +66,8 @@ class PieData extends ChartData {
   }
 
   // Create a valid model with zero values
-  factory PieData.zero({double radius = 0.0, Color color = Colors.white}) {
+  factory PieData.zero({Color color = Colors.white}) {
     return PieData(
-      radius: radius,
       value: 0.0,
       color: color,
       showLabel: false,
@@ -104,7 +100,6 @@ class PieData extends ChartData {
     String label,
   }) {
     return PieData(
-      radius: radius ?? this.radius,
       value: value ?? this.value,
       color: color ?? this.color,
       showLabel: showLabel ?? this.showLabel,
@@ -115,7 +110,6 @@ class PieData extends ChartData {
   // Used to tween between two models
   static PieData lerp(PieData b, PieData e, double t) {
     return PieData(
-      radius: lerpDouble(b.radius, e.radius, t),
       value: lerpDouble(b.value, e.value, t),
       color: Color.fromRGBO(
         lerpDouble(b.color.red, e.color.red, t).toInt(),
@@ -138,10 +132,10 @@ class PieData extends ChartData {
 
     for (int i = 0; i < length; i++) {
       if (i > b.length - 1) {
-        PieData begin = PieData.zero(radius: 70);
+        PieData begin = PieData.zero();
         segments.add(PieData.lerp(begin, e[i], t));
       } else if (i > e.length - 1) {
-        PieData end = PieData.zero(radius: 70, color: Colors.white.withOpacity(0));
+        PieData end = PieData.zero(color: Colors.white.withOpacity(0));
         segments.add(PieData.lerp(b[i], end, t));
       } else {
         segments.add(PieData.lerp(b[i], e[i], t));
@@ -353,8 +347,8 @@ class PieChartPainter extends ChartPainter {
       double sectionCenterAngle = startAngle + (sweepAngle / 2);
       Offset sectionCenterOffset = center +
           Offset(
-            math.cos(radians(sectionCenterAngle)) * (controller.centerRadius + (segment.radius)),
-            math.sin(radians(sectionCenterAngle)) * (controller.centerRadius + (segment.radius)),
+            math.cos(radians(sectionCenterAngle)) * (controller.centerRadius + (controller.segmentWidth)),
+            math.sin(radians(sectionCenterAngle)) * (controller.centerRadius + (controller.segmentWidth)),
           );
 
       if (segment.showLabel) {
