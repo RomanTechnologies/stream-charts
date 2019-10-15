@@ -272,6 +272,9 @@ class PieChartPainter extends ChartPainter {
       size.height / 2,
     );
 
+    paths = [];
+    super.paths = [];
+
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     _drawSegments(
       canvas,
