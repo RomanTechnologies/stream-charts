@@ -11,9 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  rxdart: any
-  provider: any
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

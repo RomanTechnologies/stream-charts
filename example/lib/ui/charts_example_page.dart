@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'charts_example_bloc.dart';
 import 'package:stream_charts/stream_charts.dart';
+import 'charts_example_bloc.dart';
 
 class ChartsExamplePage extends StatefulWidget {
   static Widget withData() {
@@ -33,7 +33,7 @@ class ChartsExamplePageState extends State<ChartsExamplePage> {
             PieChart(
               controllerStream: bloc.pieChartControllerStream,
               child: _buildPieCenter(),
-              onSelect: bloc.pieChartControllerSubject.add,
+              onSelect: selectSegment,
             ),
             LineGraph(controllerStream: bloc.lineGraphControllerStream),
           ],
@@ -41,6 +41,12 @@ class ChartsExamplePageState extends State<ChartsExamplePage> {
       ),
       floatingActionButton: FloatingActionButton(onPressed: () async => await _randomise()),
     );
+  }
+
+  selectSegment(PieData data) {
+    print(data.toString());
+    final bloc = Provider.of<ChartsExampleBloc>(context);
+    bloc.pieChartControllerSubject.add(bloc.pieChartControllerSubject.value);
   }
 
   Widget _buildPieCenter() {

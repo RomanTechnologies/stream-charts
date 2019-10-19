@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:stream_charts/src/ui/bar_chart/bar.dart';
-import 'package:stream_charts/src/ui/line_graph/line.dart';
-import 'package:stream_charts/src/ui/pie_chart/pie.dart';
+import 'package:stream_charts/stream_charts.dart';
 
 class ChartsExampleBloc {
-  BehaviorSubject<BarChartController> barChartControllerSubject =
-      BehaviorSubject<BarChartController>.seeded(BarChartController(
+  BehaviorSubject<BarChartController> barChartControllerSubject = BehaviorSubject<BarChartController>.seeded(BarChartController(
     bars: [
       BarData(
         height: 165,
@@ -49,12 +46,10 @@ class ChartsExampleBloc {
   ));
   Observable<BarChartController> get barChartControllerStream => barChartControllerSubject.stream;
 
-  BehaviorSubject<PieChartController> pieChartControllerSubject =
-      BehaviorSubject<PieChartController>.seeded(PieChartController.empty());
+  BehaviorSubject<PieChartController> pieChartControllerSubject = BehaviorSubject<PieChartController>.seeded(PieChartController.empty());
   Observable<PieChartController> get pieChartControllerStream => pieChartControllerSubject.stream;
 
-  BehaviorSubject<LineGraphController> lineGraphControllerSubject =
-      BehaviorSubject<LineGraphController>.seeded(LineGraphController(
+  BehaviorSubject<LineGraphController> lineGraphControllerSubject = BehaviorSubject<LineGraphController>.seeded(LineGraphController(
     lines: [
       LineData(
         points: [
