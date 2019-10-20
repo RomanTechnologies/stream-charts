@@ -267,6 +267,10 @@ class PieChartPainter extends ChartPainter {
       return;
     }
 
+    if (size.width == 0 || size.height == 0) {
+      return;
+    }
+
     var center = Offset(
       size.width / 2,
       size.height / 2,
@@ -327,12 +331,13 @@ class PieChartPainter extends ChartPainter {
       var rd = radiansAngle[i];
 
       canvas.drawLine(
-        center,
+        center ?? Offset.zero,
         _getSegmentEnd(
-          center,
-          controller.centerRadius + controller.selectedWidth,
-          currentAngle + rd,
-        ),
+              center,
+              controller.centerRadius + controller.selectedWidth,
+              currentAngle + rd,
+            ) ??
+            Offset.zero,
         sectionsSpaceClearPaint,
       );
 
@@ -473,13 +478,7 @@ class PieChartPainter extends ChartPainter {
   }
 
   void _drawSegments(Canvas canvas,
-      {Offset center,
-      Size size,
-      double centerRadius,
-      double segmentWidth,
-      bool rounded = false,
-      hasCurrent = false,
-      int curIndex = 0}) {
+      {Offset center, Size size, double centerRadius, double segmentWidth, bool rounded = false, hasCurrent = false, int curIndex = 0}) {
     var paint = Paint()
       ..style = PaintingStyle.stroke
       ..color = Colors.blue
