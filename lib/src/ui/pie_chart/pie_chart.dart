@@ -65,6 +65,9 @@ class PieChartState extends ChartState<PieChart> with ChartPage {
 
   @override
   void updateData(ChartController data) {
+    if (!mounted) {
+      return;
+    }
     PieChartController pieChartController = data;
     setState(() {
       centerRadius = pieChartController.centerRadius;
