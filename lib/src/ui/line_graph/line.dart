@@ -178,29 +178,8 @@ class LineGraphPainter extends ChartPainter {
     this.onSelect,
   })  : animation = animation,
         super(animation: animation) {
-    barPaint = Paint()..style = PaintingStyle.stroke;
-
-    barAreaPaint = Paint()..style = PaintingStyle.fill;
-
-    barAreaLinesPaint = Paint()..style = PaintingStyle.stroke;
-
-    clearBarAreaPaint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = const Color(0x000000000)
-      ..blendMode = BlendMode.dstIn;
-
+    linePaint = Paint()..style = PaintingStyle.stroke;
     pointPaint = Paint()..style = PaintingStyle.fill;
-
-    clearAroundBorderPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..color = const Color(0x000000000)
-      ..blendMode = BlendMode.dstIn;
-
-    extraLinesPaint = Paint()..style = PaintingStyle.stroke;
-
-    touchLinePaint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = Colors.black;
   }
 
   LineGraphController controller;
@@ -209,7 +188,7 @@ class LineGraphPainter extends ChartPainter {
 
   final Function onSelect;
 
-  Paint barPaint, barAreaPaint, barAreaLinesPaint, clearBarAreaPaint, pointPaint, clearAroundBorderPaint, extraLinesPaint, touchLinePaint;
+  Paint linePaint, pointPaint;
 
   @override
   void paint(Canvas canvas, Size viewSize) {
@@ -301,12 +280,12 @@ class LineGraphPainter extends ChartPainter {
   }
 
   void _drawLine(Canvas canvas, Size viewSize, Path linePath, LineData lineData) {
-    barPaint.strokeCap = lineData.roundedEnds ? StrokeCap.round : StrokeCap.butt;
+    linePaint.strokeCap = lineData.roundedEnds ? StrokeCap.round : StrokeCap.butt;
 
-    barPaint.color = lineData.color;
-    barPaint.shader = null;
-    barPaint.strokeWidth = 10.0;
-    canvas.drawPath(linePath, barPaint);
+    linePaint.color = lineData.color;
+    linePaint.shader = null;
+    linePaint.strokeWidth = 10.0;
+    canvas.drawPath(linePath, linePaint);
   }
 
   @override
